@@ -1,0 +1,74 @@
+EJERCICIO 1 - CONCLUSIONES Y HALLAZGOS
+======================================
+
+RESULTADO
+El flujo E2E de compra como invitado se automatizó de punta a punta: agregar dos
+productos, validar el carrito, completar el Guest Checkout y confirmar la orden
+con el mensaje "Your order has been placed!".
+
+Resultado de la ejecución: 1 escenario, 6 pasos, 6 aprobados (100%).
+Evidencia: carpeta evidencias/serenity-report/index.html
+
+ENTORNO DE EJECUCIÓN
+- Sitio: http://opencart.abstracta.us/
+- Navegador: Google Chrome 153
+- Framework: Serenity BDD 4.1.20 + Screenplay + Cucumber 7 + JUnit 5
+- Lenguaje / build: Java 17 + Maven
+
+ALCANCE CUBIERTO
+1. Agregar dos productos al carrito desde la página principal (MacBook e iPhone),
+   validando la alerta de éxito de cada uno.
+2. Visualizar el carrito y validar que contiene exactamente los productos agregados.
+3. Checkout como invitado (Guest Checkout) diligenciando los datos de facturación.
+4. Selección de método de envío, aceptación de términos y método de pago.
+5. Confirmación de la orden y validación del mensaje final.
+
+HALLAZGOS
+1. Productos con opciones obligatorias: "Apple Cinema 30"" y "Canon EOS 5D" no se
+   agregan directamente desde la página principal porque redirigen al detalle para
+   elegir opciones. Por eso se seleccionaron MacBook e iPhone, que se agregan en un clic.
+2. Localizadores ambiguos entre páginas: la página de checkout y la de confirmación
+   usan el mismo contenedor para el título (#content h1). En la primera ejecución la
+   validación leyó "Checkout" en lugar del mensaje de éxito, porque la espera se
+   cumplía antes de la redirección. Se corrigió con un localizador exclusivo de la
+   página de éxito (#common-success h1). Aprendizaje: los localizadores deben
+   identificar de forma única el estado esperado, no solo el elemento.
+3. Carga asíncrona: el listado de departamentos (Region/State) se carga por AJAX al
+   cambiar el país. Se usaron esperas explícitas en lugar de Thread.sleep para evitar
+   pruebas inestables.
+4. Checkout tipo acordeón: cada paso se habilita después del anterior y tiene
+   animaciones. La interacción ClickCuandoEsteListo espera que el elemento sea
+   clickeable antes de interactuar.
+5. Seguridad: el sitio funciona sobre HTTP, por lo que los datos personales del
+   checkout viajan sin cifrar. En un entorno real sería un hallazgo crítico.
+6. Ambiente compartido: es un sitio demo público. Los tiempos de respuesta varían
+   y las órdenes quedan registradas, lo que puede afectar la repetibilidad.
+7. Compatibilidad de herramientas: Selenium muestra una advertencia por no tener la
+   implementación de DevTools (CDP) para Chrome 153. No afecta la prueba porque no
+   se usan funciones de CDP, pero conviene mantener alineadas las versiones de
+   Selenium y del navegador.
+
+DECISIONES DE DISEÑO
+- Screenplay para separar el qué (tasks) del cómo (interactions y targets) y
+  facilitar el mantenimiento y la reutilización.
+- Gherkin en español con datos en tablas para que negocio pueda leer y modificar
+  los escenarios sin tocar código Java.
+- Modelo DatosInvitado (record) con @DataTableType para mapear la tabla del feature
+  a un objeto tipado.
+- Esperas explícitas centralizadas en una interacción reutilizable.
+- Validaciones en dos puntos clave: contenido del carrito y mensaje final.
+- Reporte Serenity con captura de pantalla por acción como evidencia.
+
+CONCLUSIÓN
+El flujo de compra como invitado funciona correctamente de punta a punta. La
+automatización es estable gracias a esperas explícitas y localizadores únicos, y
+su estructura permite agregar nuevos productos, datos o escenarios con cambios
+mínimos.
+
+MEJORAS PROPUESTAS
+- Validar subtotales y total de la orden contra el precio de cada producto.
+- Agregar escenarios negativos: campos obligatorios vacíos, correo inválido,
+  términos sin aceptar.
+- Parametrizar ambiente y navegador desde serenity.conf por perfiles.
+- Ejecutar en un pipeline de CI (GitHub Actions o Azure DevOps) en modo headless.
+- Ejecución cross-browser (Chrome, Firefox, Edge).

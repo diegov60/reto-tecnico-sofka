@@ -1,0 +1,65 @@
+EJERCICIO 2 - CONCLUSIONES Y HALLAZGOS
+======================================
+
+RESULTADO
+Se automatizó el ciclo completo del recurso /user: crear, consultar, actualizar
+nombre y correo, consultar de nuevo y eliminar. Además se verifica que el usuario
+eliminado ya no exista y se cubre un escenario negativo.
+
+Resultado de la ejecución: 2 escenarios, 2 aprobados, 0 fallidos (100%).
+Evidencia: carpeta evidencias/karate-report/karate-summary.html
+
+ENTORNO DE EJECUCIÓN
+- API: https://petstore.swagger.io/v2
+- Herramienta: Karate 1.5.2 + JUnit 5
+- Lenguaje / build: Java 17 + Maven
+
+RESUMEN DE PETICIONES (ejecución de referencia)
+| Paso                          | Método | Status | Tiempo   |
+|-------------------------------|--------|--------|----------|
+| Crear usuario                 | POST   | 200    | 755 ms   |
+| Buscar usuario creado         | GET    | 200    | 305 ms   |
+| Actualizar nombre y correo    | PUT    | 200    | 298 ms   |
+| Buscar usuario actualizado    | GET    | 200    | 272 ms   |
+| Eliminar usuario              | DELETE | 200    | 260 ms   |
+| Verificar usuario eliminado   | GET    | 404    | 279 ms   |
+| Consultar usuario inexistente | GET    | 404    | 219 ms   |
+
+HALLAZGOS
+1. Respuestas genéricas: POST, PUT y DELETE retornan un objeto ApiResponse
+   {code, type, message} en lugar del recurso creado o modificado. El campo
+   "message" devuelve el id (POST/PUT) o el username (DELETE) como texto, y el
+   campo "type" siempre es "unknown" en respuestas exitosas, lo que limita la
+   validación y la trazabilidad.
+2. Validación de tipos débil: en una ejecución inicial el id se envió en notación
+   científica (7.8211379E7) y el API lo aceptó y convirtió a entero sin error.
+   Se ajustó el script para enviar siempre un entero, pero en un sistema real se
+   esperaría un 400 ante un tipo de dato inválido.
+3. Validación de datos débil: la API no valida formato de correo ni campos
+   obligatorios. En un sistema real se esperaría un 400 ante datos inválidos.
+4. Seguridad: los endpoints de usuario no exigen autenticación y la consulta
+   devuelve la contraseña en texto plano. Sería un hallazgo crítico en producción.
+5. Tiempos de respuesta: la primera petición (POST) tardó más (755 ms) que las
+   siguientes (219-305 ms), comportamiento típico del establecimiento de conexión
+   inicial. Todas las respuestas estuvieron por debajo de 1 segundo.
+6. Ambiente compartido: es un servicio demo público. Se usaron datos únicos por
+   timestamp para evitar colisiones, y se configuraron reintentos ("retry until")
+   para tolerar posibles inconsistencias temporales entre instancias.
+
+DECISIONES DE DISEÑO
+- Karate por su sintaxis declarativa, validación de esquemas nativa y reporte HTML.
+- Payloads externos en JSON con expresiones embebidas para separar datos y lógica.
+- Variables dinámicas (username, id, email) generadas por timestamp.
+- Validación en cada paso: status, esquema y valores esperados.
+- Verificación posterior a la eliminación para confirmar el estado final.
+
+CONCLUSIÓN
+El CRUD del recurso /user funciona correctamente y responde de forma consistente
+y rápida. Los principales riesgos detectados son de validación de datos y de
+seguridad (sin autenticación y contraseñas expuestas), no de funcionalidad.
+
+MEJORAS PROPUESTAS
+- Escenarios negativos adicionales: creación con body vacío, tipos de dato
+  inválidos, actualización de usuario inexistente, eliminación doble.
+- Pruebas de contrato contra el Swagger (OpenAPI).
+- Ejecución en pipeline CI con publicación del reporte.

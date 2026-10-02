@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Screenshots</title>
+
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="bootstrap-icons/bootstrap-icons.css">
+<!-- JQuery -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Required Stylesheets -->
+<link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+
+<!-- Required Javascript -->
+<script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<link rel="stylesheet" href="css/core.css"/>
+<link rel="stylesheet" href="css/link.css"/>
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/>
+<!--CHART.JS-->
+<script src="chartjs/chart.js"></script>
+<script src="chartjs/chartjs-plugin-datalabels@2.0.0.min.js"></script>
+<script src="chartjs/patternomaly.min.js"></script>
+<script>
+    // Register the plugin to all charts:
+    Chart.register(ChartDataLabels);
+</script>
+<!-- Nivo Slider -->
+<link rel="stylesheet" href="nivo-slider/3.2/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="nivo-slider/3.2/themes/default/default.css" type="text/css" media="screen" />
+<script src="nivo-slider/3.2/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
+        var screenshotIndex = getUrlVars()["screenshot"];
+
+        $(window).load(function () {
+            $('#slider').nivoSlider({
+                startSlide: screenshotIndex,
+                effect: 'fade',
+                animSpeed: 200,
+                manualAdvance: true
+            });
+        });
+
+        $(window).keydown(function(e) {
+            switch(e.which) {
+                case 37:
+                    $('a.nivo-prevNav').click();
+                    break;
+                case 39:
+                    $('a.nivo-nextNav').click();
+                    break;
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+<div id="topheader">
+    <div id="topbanner">
+        <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
+        <div id="projectname-banner" style="float:right">
+            <span class="projectname">
+                <span class="projecttitle">OpenCart - Compra E2E Guest Checkout</span>
+                <span class="projectsubtitle"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="middlecontent">
+    <div id="contenttop">
+        <div class="middlebg">
+            <span class="breadcrumbs">
+                <a href="index.html">Home</a>
+                > <span class="truncate-40"><a
+                    href="4bd828f5588929e4fa0684c2e2108e9a271f412f82420e38516a04e647f03958.html">Compra Invitado</a></span>
+                > <span class="truncate-60"><a
+                    href="187c0c035ce4e1abb31caadc5a9ce456fb14baf79c274d67b7b433910c08e58a.html">Compra exitosa de dos productos con Guest Checkout </a></span>
+                > Screenshots
+            </span>
+        </div>
+        <div class="rightbg"></div>
+    </div>
+
+    <div class="clr"></div>
+
+    <!--/* starts second table*/-->
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#"><i class="bi bi-journal-check"></i> Overall Test Results</a>
+        </li>
+        <li >
+            <a href="capabilities.html"><i class="bi bi-journal-text"></i> Requirements</a>
+        </li>
+        <li >
+            <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
+        </li>
+    </ul>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 02-10-2026 17:14</span>
+    <br style="clear:left"/>
+</div>
+
+    <div class="clr"></div>
+
+
+    <div id="contentbody">
+        <div class="titlebar">
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td>
+                            <div>
+                                <h3 class="discreet-story-header">
+                                    <i class="fs-2 bi bi-chat-left-quote large-icon"></i>
+                                    <span class="story-header-title">Flujo De Compra Como Invitado En Opencart </span>
+                                    <span class="badge tag-badge" style="">Feature</span>
+                                </h3>
+
+                                <div class="discreet-requirement-narrative-title">
+                                Como cliente de la tienda<br />
+Quiero comprar productos sin registrarme<br />
+Para finalizar mi pedido de forma rápida
+                                </div>
+                            </div>
+
+                        </td>
+                        <td valign="top" align="right">
+                            <p class="tag">
+                                <span class="badge tag-badge" style="background:default;"
+                                    <i class="bi bi-tag-fill"></i>&nbsp;<a class="tagLink" style="background:default;" href="5698da923f295f46ce5ab64ced2311fc60caa4e36b32112606d3adcfdce3f60b.html">30 To 60 Seconds
+                                        (Duration)
+                                </a>
+                                </span>
+                            </p>
+                            <p class="tag">
+                                <span class="badge tag-badge" style="background:default;"
+                                    <i class="bi bi-tag-fill"></i>&nbsp;<a class="tagLink" style="background:default;" href="dcc6be9c702192341b78636516a09c82df4e615b387a0348c81c722df86f709f.html">Compra E2 E
+                                </a>
+                                </span>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td colspan="2" class="test-title-bar">
+                            <span class="outcome-icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon fa-2x' title='SUCCESS'></i></a></span>
+                            <span class="test-case-title">
+                                <span class="success-color">Compra exitosa de dos productos con Guest Checkout
+                                    <span class="related-issue-title"></span>
+                                </span>
+                            </span>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="clr"></div>
+
+
+    <div id="beforetable"></div>
+    <div id="contenttilttle">
+        <div class="slider-wrapper theme-default">
+            <div id="slider">
+                <img src="e0208c2152741bf3b866e08031cda0e12c869a642ad773d1bcbe41c308a1d74d.png" title=" Dado que &quot;Diego&quot; est&aacute; en la tienda OpenCart" width="0"/>
+                <img src="e0208c2152741bf3b866e08031cda0e12c869a642ad773d1bcbe41c308a1d74d.png" title=" Diego abre la tienda OpenCart" width="0"/>
+                <img src="e0208c2152741bf3b866e08031cda0e12c869a642ad773d1bcbe41c308a1d74d.png" title=" Diego opens the Home page" width="0"/>
+                <img src="e0208c2152741bf3b866e08031cda0e12c869a642ad773d1bcbe41c308a1d74d.png" title=" Diego abre la tienda OpenCart (completed)" width="0"/>
+                <img src="d725c77bcd379a65724c65e7b7bfb485e483b77eafc62eba934a22b79f565b41.png" title=" Dado que &quot;Diego&quot; est&aacute; en la tienda OpenCart (completed)" width="0"/>
+                <img src="15c7867038db4e60adfa4aeed1b0c1bb950ffefc1564898099025b7f39b19b76.png" title=" Cuando agrega al carrito los productos
+| MacBook |
+| iPhone |" width="0"/>
+                <img src="15c7867038db4e60adfa4aeed1b0c1bb950ffefc1564898099025b7f39b19b76.png" title=" Diego agrega el producto MacBook al carrito" width="0"/>
+                <img src="15c7867038db4e60adfa4aeed1b0c1bb950ffefc1564898099025b7f39b19b76.png" title=" Diego hace clic en bot&oacute;n agregar al carrito de MacBook cuando est&aacute; disponible" width="0"/>
+                <img src="15c7867038db4e60adfa4aeed1b0c1bb950ffefc1564898099025b7f39b19b76.png" title=" Diego clicks on bot&oacute;n agregar al carrito de MacBook" width="0"/>
+                <img src="15c7867038db4e60adfa4aeed1b0c1bb950ffefc1564898099025b7f39b19b76.png" title=" Diego hace clic en bot&oacute;n agregar al carrito de MacBook cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="3c421ebd2f910ecbfe7d4d990208fc491184736e7e58ad782e4e7ed86feaf890.png" title=" Diego agrega el producto MacBook al carrito (completed)" width="0"/>
+                <img src="f3d90cd9fb4742af0639413ef8033722abb90fdd5e3cba0c8c6d4a1fc04efa0c.png" title=" Diego agrega el producto iPhone al carrito" width="0"/>
+                <img src="f3d90cd9fb4742af0639413ef8033722abb90fdd5e3cba0c8c6d4a1fc04efa0c.png" title=" Diego hace clic en bot&oacute;n agregar al carrito de iPhone cuando est&aacute; disponible" width="0"/>
+                <img src="f3d90cd9fb4742af0639413ef8033722abb90fdd5e3cba0c8c6d4a1fc04efa0c.png" title=" Diego clicks on bot&oacute;n agregar al carrito de iPhone" width="0"/>
+                <img src="f3d90cd9fb4742af0639413ef8033722abb90fdd5e3cba0c8c6d4a1fc04efa0c.png" title=" Diego hace clic en bot&oacute;n agregar al carrito de iPhone cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="14e75102c29aa92f83572eedff36fccaa176d0b2e4753707f6f32bd6e5286cfc.png" title=" Diego agrega el producto iPhone al carrito (completed)" width="0"/>
+                <img src="14e75102c29aa92f83572eedff36fccaa176d0b2e4753707f6f32bd6e5286cfc.png" title=" Cuando agrega al carrito los productos
+| MacBook |
+| iPhone | (completed)" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Y visualiza el carrito de compras" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Diego visualiza el carrito de compras" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Diego hace clic en enlace Shopping Cart cuando est&aacute; disponible" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Diego clicks on enlace Shopping Cart" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Diego hace clic en enlace Shopping Cart cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Diego visualiza el carrito de compras (completed)" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Y visualiza el carrito de compras (completed)" width="0"/>
+                <img src="c83df1d9b3c415469c834064f2620c48291e7d35d45b0f3a26507f72975e0d19.png" title=" Entonces deber&iacute;a ver en el carrito los productos
+| MacBook |
+| iPhone |" width="0"/>
+                <img src="8ec92623b1c23d398957be54e411504e5657c187b6c7f4b59acec5aa7fdf5fed.png" title=" Cuando realiza el checkout como invitado con los datos
+| nombre | apellido | correo | telefono | direccion | ciudad | codigoPostal | pais | departamento |
+| Diego | Prueba | diego.prueba@test.com | 3001234567 | Calle 10 # 20-30 | Sabaneta | 055450 | Colombia | Antioquia |" width="0"/>
+                <img src="8ec92623b1c23d398957be54e411504e5657c187b6c7f4b59acec5aa7fdf5fed.png" title=" Diego realiza el checkout como invitado" width="0"/>
+                <img src="8ec92623b1c23d398957be54e411504e5657c187b6c7f4b59acec5aa7fdf5fed.png" title=" Diego hace clic en bot&oacute;n Checkout cuando est&aacute; disponible" width="0"/>
+                <img src="8ec92623b1c23d398957be54e411504e5657c187b6c7f4b59acec5aa7fdf5fed.png" title=" Diego clicks on bot&oacute;n Checkout" width="0"/>
+                <img src="8ec92623b1c23d398957be54e411504e5657c187b6c7f4b59acec5aa7fdf5fed.png" title=" Diego hace clic en bot&oacute;n Checkout cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="9e442f89161606043eede8760c2e2f6532a993fd026be5786f7aafe54a295854.png" title=" Diego hace clic en opci&oacute;n Guest Checkout cuando est&aacute; disponible" width="0"/>
+                <img src="9e442f89161606043eede8760c2e2f6532a993fd026be5786f7aafe54a295854.png" title=" Diego clicks on opci&oacute;n Guest Checkout" width="0"/>
+                <img src="9e442f89161606043eede8760c2e2f6532a993fd026be5786f7aafe54a295854.png" title=" Diego hace clic en opci&oacute;n Guest Checkout cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="56dacbc98efc51d209691f20cb304a0583cb08f03414d7c8d81d3af949e6ee03.png" title=" Diego hace clic en continuar opciones de cuenta cuando est&aacute; disponible" width="0"/>
+                <img src="56dacbc98efc51d209691f20cb304a0583cb08f03414d7c8d81d3af949e6ee03.png" title=" Diego clicks on continuar opciones de cuenta" width="0"/>
+                <img src="56dacbc98efc51d209691f20cb304a0583cb08f03414d7c8d81d3af949e6ee03.png" title=" Diego hace clic en continuar opciones de cuenta cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="d2427f8e36b99fd9f0e9392027d56dd2c2cd2d690bcc8e46adc999d310f6b43a.png" title=" Diego enters 'Diego' into nombre" width="0"/>
+                <img src="0f8edb37b8eff9d869701a786d4a52db93cf850c3b23935150aca16b1641261b.png" title=" Diego enters 'Prueba' into apellido" width="0"/>
+                <img src="a40ebdcb3bc51c6ae3112f0c507311e03f418b3d8f811ae64a149bb3d6103bf4.png" title=" Diego enters 'diego.prueba@test.com' into correo" width="0"/>
+                <img src="16bdba718fb1fb7a39cc22f341bddf518fd966a04f54047e95a3c8c28c498ec0.png" title=" Diego enters '3001234567' into tel&eacute;fono" width="0"/>
+                <img src="4c06754bf3fe8e85e8552c3427e3469f8d60503b88b812a94f4aa9880e8458ee.png" title=" Diego enters 'Calle 10 # 20-30' into direcci&oacute;n" width="0"/>
+                <img src="5f98dd00e73b9de7f86c4cd4d342e7e5c9eebdedb66a7409c9d7b5215c8c4aa8.png" title=" Diego enters 'Sabaneta' into ciudad" width="0"/>
+                <img src="932ca725df3c0f32db9f42b18faa36fc4815af5cdcb966c5e9c5476eb4ebd5f8.png" title=" Diego enters '055450' into c&oacute;digo postal" width="0"/>
+                <img src="f3019c813483f74a0465848e3e94aafc7b1314145abd994413b8c81d4eb77225.png" title=" Diego selects Colombia on pa&iacute;s" width="0"/>
+                <img src="4f08f83d40b7fc67f08654cfb6581555ed314737eca88de962b7006613da1572.png" title=" Diego selects Antioquia on departamento" width="0"/>
+                <img src="d9f31f614349a3009c037bc30444e694cd716ed5d7322387ad83f8ca9fb0d442.png" title=" Diego hace clic en continuar datos de invitado cuando est&aacute; disponible" width="0"/>
+                <img src="d9f31f614349a3009c037bc30444e694cd716ed5d7322387ad83f8ca9fb0d442.png" title=" Diego clicks on continuar datos de invitado" width="0"/>
+                <img src="d9f31f614349a3009c037bc30444e694cd716ed5d7322387ad83f8ca9fb0d442.png" title=" Diego hace clic en continuar datos de invitado cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="a1b69ab90aadde242bf99f031fb67f9474d03faf76e15e8e85de00702edebab3.png" title=" Diego hace clic en continuar m&eacute;todo de env&iacute;o cuando est&aacute; disponible" width="0"/>
+                <img src="a1b69ab90aadde242bf99f031fb67f9474d03faf76e15e8e85de00702edebab3.png" title=" Diego clicks on continuar m&eacute;todo de env&iacute;o" width="0"/>
+                <img src="a1b69ab90aadde242bf99f031fb67f9474d03faf76e15e8e85de00702edebab3.png" title=" Diego hace clic en continuar m&eacute;todo de env&iacute;o cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="f02197e45247af76002fd0154a274cd0c74e412b65362c4c6594e25543435dda.png" title=" Diego hace clic en aceptar t&eacute;rminos y condiciones cuando est&aacute; disponible" width="0"/>
+                <img src="f02197e45247af76002fd0154a274cd0c74e412b65362c4c6594e25543435dda.png" title=" Diego clicks on aceptar t&eacute;rminos y condiciones" width="0"/>
+                <img src="f02197e45247af76002fd0154a274cd0c74e412b65362c4c6594e25543435dda.png" title=" Diego hace clic en aceptar t&eacute;rminos y condiciones cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="7eaf497d919c3e2b3ef29e08de88df0a5d04892f059911ff5cab0b05e8e3ea87.png" title=" Diego hace clic en continuar m&eacute;todo de pago cuando est&aacute; disponible" width="0"/>
+                <img src="7eaf497d919c3e2b3ef29e08de88df0a5d04892f059911ff5cab0b05e8e3ea87.png" title=" Diego clicks on continuar m&eacute;todo de pago" width="0"/>
+                <img src="7eaf497d919c3e2b3ef29e08de88df0a5d04892f059911ff5cab0b05e8e3ea87.png" title=" Diego hace clic en continuar m&eacute;todo de pago cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="7eaf497d919c3e2b3ef29e08de88df0a5d04892f059911ff5cab0b05e8e3ea87.png" title=" Diego realiza el checkout como invitado (completed)" width="0"/>
+                <img src="682ee7af75299a9fc4dc21e74e38f46d7d003d9e9aabfe96bfffd3ad1be992ba.png" title=" Diego confirma la orden" width="0"/>
+                <img src="682ee7af75299a9fc4dc21e74e38f46d7d003d9e9aabfe96bfffd3ad1be992ba.png" title=" Diego hace clic en confirmar orden cuando est&aacute; disponible" width="0"/>
+                <img src="682ee7af75299a9fc4dc21e74e38f46d7d003d9e9aabfe96bfffd3ad1be992ba.png" title=" Diego clicks on confirmar orden" width="0"/>
+                <img src="682ee7af75299a9fc4dc21e74e38f46d7d003d9e9aabfe96bfffd3ad1be992ba.png" title=" Diego hace clic en confirmar orden cuando est&aacute; disponible (completed)" width="0"/>
+                <img src="f91f4a97bfc819861fd74cd9883aa9273a84a6524e655b40465bb035b37ed85f.png" title=" Diego confirma la orden (completed)" width="0"/>
+                <img src="f91f4a97bfc819861fd74cd9883aa9273a84a6524e655b40465bb035b37ed85f.png" title=" Cuando realiza el checkout como invitado con los datos
+| nombre | apellido | correo | telefono | direccion | ciudad | codigoPostal | pais | departamento |
+| Diego | Prueba | diego.prueba@test.com | 3001234567 | Calle 10 # 20-30 | Sabaneta | 055450 | Colombia | Antioquia | (completed)" width="0"/>
+
+                <img src="f91f4a97bfc819861fd74cd9883aa9273a84a6524e655b40465bb035b37ed85f.png" title=" Entonces debería ver el mensaje de confirmación "Your order has been placed!": <span class='success-color'>SUCCESS</span>" width="0"/>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div id="beforefooter"></div>
+<div id="bottomfooter">
+    <span class="version">Serenity BDD version 4.1.20</span>
+</div>
+</body>
+</html>
