@@ -1,0 +1,46 @@
+﻿Fecha: 03/10/2026 11:37:05
+curl.exe :   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+En línea: 1 Carácter: 1
++ curl.exe -i --location --max-time 60 "https://fakestoreapi.com/auth/l ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  % Total    % ... Time   Current:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100     41   0      0 100     41      0     30   00:01   00:01             39
+100     41   0      0 100     41      0     17   00:02   00:02             20
+100     41   0      0 100     41      0     12   00:03   00:03             13
+100     41   0      0 100     41      0      9   00:04   00:04             10
+100     41   0      0 100     41      0      7   00:05   00:05              8
+100     41   0      0 100     41      0      6   00:06   00:06              0
+100     41   0      0 100     41      0      5   00:08   00:07   00:01      0
+100     41   0      0 100     41      0      4   00:10   00:08   00:02      0
+100     41   0      0 100     41      0      4   00:10   00:09   00:01      0
+100     41   0      0 100     41      0      3   00:13   00:10   00:03      0
+100     41   0      0 100     41      0      3   00:13   00:11   00:02      0
+100     41   0      0 100     41      0      3   00:13   00:12   00:01      0
+100     41   0      0 100     41      0      3   00:13   00:13              0
+100     41   0      0 100     41      0      2   00:20   00:14   00:06      0
+100     41   0      0 100     41      0      2   00:20   00:15   00:05      0
+100     41   0      0 100     41      0      2   00:20   00:16   00:04      0
+100     41   0      0 100     41      0      2   00:20   00:17   00:03      0
+100     41   0      0 100     41      0      2   00:20   00:18   00:02      0
+100     41   0      0 100     41      0      2   00:20   00:19   00:01      0
+100     57   0     16 100     41      0      2   00:20   00:20              2
+100     57   0     16 100     41      0      2   00:20   00:20              2
+100     57   0     16 100     41      0      2   00:20   00:20              2
+HTTP/1.1 522 <none>
+Date: Sat, 03 Oct 2026 16:37:27 GMT
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 16
+Connection: keep-alive
+Cache-Control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Expires: Thu, 01 Jan 1970 00:00:01 GMT
+Referrer-Policy: same-origin
+X-Frame-Options: SAMEORIGIN
+Server: cloudflare
+CF-RAY: a44d5ea60e1b34cf-MIA
+
+error code: 522

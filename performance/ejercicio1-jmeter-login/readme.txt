@@ -53,6 +53,20 @@ PASO A PASO DE EJECUCIÓN
 4. Abrir el reporte:
    reports\dashboard\index.html
 
+PLAN B - SERVICIO ALTERNATIVO (DUMMYJSON)
+Durante la ejecución del reto, fakestoreapi.com no estuvo disponible
+(Cloudflare respondió error 521 y luego 522: el servidor de origen no
+respondía). Para demostrar que el script cumple el escenario, se ejecutó
+el MISMO plan contra https://dummyjson.com/auth/login, una API pública
+de login equivalente, cambiando solo parámetros:
+- -Jhost=dummyjson.com
+- -Jcsv=data/usuarios-dummyjson.csv   (usuarios de prueba de DummyJSON)
+- -JtokenPath=$.accessToken           (DummyJSON devuelve accessToken)
+Ejecución: doble clic en ejecutar-dummyjson.bat
+Reporte:   reports\dashboard-dummyjson\index.html
+Los resultados de DummyJSON son evidencia complementaria y no
+reemplazan una medición sobre el servicio original.
+
 PARÁMETROS OPCIONALES (sin editar el script)
 - Cambiar TPS:       -Jtpm=1800        (1800/min = 30 TPS)
 - Cambiar usuarios:  -Jusuarios=50
@@ -65,8 +79,10 @@ ABRIR EN MODO GRÁFICO (solo para revisar o depurar)
 
 ESTRUCTURA
 login-load-test.jmx  -> plan de prueba
-data/usuarios.csv    -> datos parametrizados (user,passwd)
-ejecutar.bat         -> ejecución rápida en Windows
+data/usuarios.csv    -> datos parametrizados (user,passwd) - FakeStoreAPI
+data/usuarios-dummyjson.csv -> datos del plan B - DummyJSON
+ejecutar.bat         -> ejecución contra FakeStoreAPI
+ejecutar-dummyjson.bat -> ejecución del plan B contra DummyJSON
 results/             -> resultados crudos (.jtl) y log
 reports/dashboard/   -> reporte HTML de JMeter (evidencia)
 readme.txt           -> este archivo

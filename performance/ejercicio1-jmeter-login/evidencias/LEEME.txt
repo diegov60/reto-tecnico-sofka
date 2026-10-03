@@ -1,0 +1,50 @@
+EVIDENCIAS - INDISPONIBILIDAD DE FAKESTOREAPI
+=============================================
+
+QUÉ PASÓ
+El servicio indicado en el enunciado (POST https://fakestoreapi.com/auth/login)
+no estuvo disponible durante el periodo del reto (02 y 03 de octubre de 2026).
+Todas las peticiones fueron respondidas por Cloudflare con error 521 o 522,
+sin llegar nunca al servidor de FakeStoreAPI.
+
+QUÉ SIGNIFICAN LOS CÓDIGOS
+- 521 "Web server is down": Cloudflare recibió la petición, pero el servidor
+  de origen de FakeStoreAPI rechazó la conexión (servidor apagado).
+- 522 "Connection timed out": Cloudflare intentó conectarse al servidor de
+  origen y se agotó el tiempo de espera (~20 s) sin respuesta.
+Ambos son errores del lado del proveedor, no del cliente ni del script.
+
+CÓMO SE DESCARTÓ QUE FUERA UN PROBLEMA DEL SCRIPT
+1. El mismo error ocurre con el cURL exacto del enunciado, sin JMeter
+   (01-curl-fakestoreapi.txt).
+2. Desde el mismo equipo y red, otra API de login responde correctamente
+   (02-curl-dummyjson.txt). La red y el equipo funcionan.
+3. En JMeter, la conexión con Cloudflare tomó 209 ms (normal), pero cada
+   respuesta tardó ~20 s (mediana 19.533 ms) hasta el error 522. Las 103
+   peticiones fallaron con el mismo código 522: el problema está detrás de
+   Cloudflare (03 y 04).
+4. El CSV se cargó correctamente: la petición enviada fue
+   {"username": "donero", "password": "ewedon"}.
+5. El dashboard de JMeter contra FakeStoreAPI (mismo script, 40 usuarios,
+   25 TPS configurados) muestra 103 peticiones con 100 % de error,
+   APDEX 0.000, tiempo promedio de 20,5 s y solo 1,31 TPS alcanzados
+   (../reports/dashboard-fakestore/index.html).
+6. Con el MISMO script y configuración, DummyJSON alcanzó 24,81 TPS con
+   0,40 % de error (05 y 06). El script funciona; el servicio original no.
+
+ARCHIVOS
+01-curl-fakestoreapi.txt                -> cURL del enunciado con fecha y cabeceras
+02-curl-dummyjson.txt                   -> cURL de control contra otra API (funciona)
+03-dashboard-fakestore-resumen.png      -> FakeStoreAPI: 100 % FAIL, APDEX 0.000
+04-dashboard-fakestore-errores.png      -> FakeStoreAPI: 103 de 103 errores 522
+05-dashboard-dummyjson-resumen.png      -> plan B: APDEX 0.996 y 99,6 % PASS
+06-dashboard-dummyjson-estadisticas.png -> plan B: estadísticas y errores
+../reports/dashboard-fakestore/         -> dashboard completo contra FakeStoreAPI
+../reports/dashboard-dummyjson/         -> dashboard completo del plan B
+
+ACCIÓN TOMADA
+- Se notificó el bloqueo al equipo de reclutamiento de Sofka por correo.
+- Se ejecutó el MISMO script contra DummyJSON (servicio alternativo) para
+  demostrar que cumple el escenario: 24,81 TPS, 0,40 % de error y
+  p95 de 150 ms. Ver ../conclusiones.txt.
+- Cuando FakeStoreAPI esté disponible, basta con ejecutar ejecutar.bat.

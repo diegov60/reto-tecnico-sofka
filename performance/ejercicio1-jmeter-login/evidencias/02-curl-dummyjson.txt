@@ -1,0 +1,40 @@
+﻿Fecha: 03/10/2026 11:37:35
+curl.exe :   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+En línea: 1 Carácter: 1
++ curl.exe -i -X POST "https://dummyjson.com/auth/login" --header "Cont ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  % Total    % ... Time   Current:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    975 100    930 100     45   2059     99                              0
+100    975 100    930 100     45   2058     99                              0
+100    975 100    930 100     45   2057     99                              0
+HTTP/1.1 200 OK
+Date: Sat, 03 Oct 2026 16:37:39 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 930
+Connection: keep-alive
+access-control-allow-credentials: true
+etag: W/"3a2-iKojp1TNVghgkTjat+lyIahqbOg"
+Set-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3OTEwNDU0NTksImV4cCI6MTc5MTA0OTA1OX0.MZ3-3SL9dr3pod0JNMg6eGaMgFHY3DAiJ4UoeItFXKE; Max-Age=3600; Path=/; Expires=Sat, 03 Oct 2026 17:37:39 GMT; HttpOnly; Secure
+Set-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3OTEwNDU0NTksImV4cCI6MTc5MzYzNzQ1OX0.K7nInoaxRRC1wrdQn6oQiRkq2Gx9Tte0RaX6q2w44B4; Max-Age=3600; Path=/; Expires=Sat, 03 Oct 2026 17:37:39 GMT; HttpOnly; Secure
+strict-transport-security: max-age=15552000; includeSubDomains
+vary: Origin, Accept-Encoding
+x-content-type-options: nosniff
+x-dns-prefetch-control: off
+x-download-options: noopen
+x-frame-options: SAMEORIGIN
+x-ratelimit-limit: 100
+x-ratelimit-remaining: 99
+x-ratelimit-reset: 1791045469
+x-xss-protection: 1; mode=block
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=mTF5vniWK3qk8u%2BSS9tYUz%2Bjly4D60fbI4P3X3uMeT9veI9BmahK2BHFPFIE6yE0hK059HGsimOTlUUllU6XHdxy0U8TwdOkDFiWmJ0eOwYr11Uv3Ud55ABLIVUjKlA7yyj3shHBfg7madFm"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a44d5f665f448dc0-MIA
+
+{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3OTEwNDU0NTksImV4cCI6MTc5MTA0OTA1OX0.MZ3-3SL9dr3pod0JNMg6eGaMgFHY3DAiJ4UoeItFXKE","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3OTEwNDU0NTksImV4cCI6MTc5MzYzNzQ1OX0.K7nInoaxRRC1wrdQn6oQiRkq2Gx9Tte0RaX6q2w44B4","id":1,"username":"emilys","email":"emily.johnson@x.dummyjson.com","firstName":"Emily","lastName":"Johnson","gender":"female","image":"https://dummyjson.com/icon/emilys/128"}

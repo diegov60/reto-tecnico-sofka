@@ -1,0 +1,142 @@
+EJERCICIO PERFORMANCE 1 - CONCLUSIONES Y HALLAZGOS
+==================================================
+
+RESUMEN
+Se construyó un plan de prueba en Apache JMeter 5.6.3 para el servicio de
+login, parametrizado con un archivo CSV y configurado para 25 TPS, con
+validaciones de status, token y tiempo de respuesta máximo de 1,5 s.
+
+El servicio indicado en el enunciado (https://fakestoreapi.com/auth/login)
+no estuvo disponible durante el periodo del reto. Para demostrar que el
+script cumple el escenario, se ejecutó el MISMO plan contra un servicio de
+login público equivalente (https://dummyjson.com/auth/login), cambiando
+solo parámetros de ejecución (host, archivo CSV y ruta del token).
+
+1. DISPONIBILIDAD DE FAKESTOREAPI
+---------------------------------
+- 02/10/2026: el servicio respondió "error code: 521" (Cloudflare: el
+  servidor de origen rechaza la conexión).
+- 02/10/2026 22:45 y 03/10/2026: el servicio respondió "error code: 522"
+  (Cloudflare: tiempo de espera agotado conectando con el servidor de
+  origen). En JMeter, la conexión con Cloudflare tomó 209 ms, pero la
+  respuesta tardó ~20 s hasta el 522.
+- Se confirmó con el cURL del enunciado, fuera de JMeter, con el mismo
+  resultado. La falla es del servidor de origen de FakeStoreAPI, no del
+  script, la red ni el cliente.
+- Como control, desde el mismo equipo y red, otra API de login
+  (DummyJSON) respondió correctamente, lo que descarta problemas de
+  conectividad local.
+- El CSV se cargó correctamente: en la petición se envió
+  {"username": "donero", "password": "ewedon"}.
+- Corrida de evidencia con JMeter contra FakeStoreAPI (03/10/2026,
+  11:37 a 11:39, mismo script y configuración):
+  103 peticiones, 100 % de error (las 103 con código 522), APDEX 0.000,
+  tiempo promedio de 20.573 ms (máximo 39.325 ms) y solo 1,31 TPS.
+  Con 40 usuarios y 25 TPS configurados, el servicio no pudo procesar
+  la carga porque cada petición esperaba ~20 s hasta el error 522 de
+  Cloudflare.
+  Reporte: reports/dashboard-fakestore/index.html
+- Se notificó el bloqueo al equipo de reclutamiento por correo.
+
+2. RESULTADOS DE LA EJECUCIÓN (SERVICIO ALTERNATIVO DUMMYJSON)
+--------------------------------------------------------------
+Fecha: 03/10/2026, 11:15 a 11:18 (3,5 minutos)
+Configuración: 40 usuarios, rampa de 30 s, 25 TPS objetivo.
+
+| Métrica                 | Resultado     | Criterio       | Estado    |
+|-------------------------|---------------|----------------|-----------|
+| Peticiones totales      | 5.198         | -              | -         |
+| Throughput              | 24,81 TPS     | >= 20 TPS      | CUMPLE    |
+| Tasa de error           | 0,40 % (21)   | < 3 %          | CUMPLE    |
+| Tiempo promedio         | 109,79 ms     | -              | -         |
+| Mediana                 | 103 ms        | -              | -         |
+| Percentil 90            | 118 ms        | -              | -         |
+| Percentil 95            | 150 ms        | <= 1.500 ms    | CUMPLE    |
+| Percentil 99            | 262 ms        | <= 1.500 ms    | CUMPLE    |
+| Tiempo mínimo / máximo  | 82 / 2.512 ms | -              | -         |
+| APDEX                   | 0,996         | -              | Excelente |
+
+Resultado: la prueba CUMPLE los tres criterios del enunciado.
+
+COMPARATIVO CON EL MISMO SCRIPT Y CONFIGURACIÓN
+| Métrica           | FakeStoreAPI     | DummyJSON (plan B) |
+|-------------------|------------------|--------------------|
+| Peticiones        | 103 en 79 s      | 5.198 en 210 s     |
+| Throughput        | 1,31 TPS         | 24,81 TPS          |
+| Tasa de error     | 100 %            | 0,40 %             |
+| Tiempo promedio   | 20.573 ms        | 109,79 ms          |
+| Tiempo máximo     | 39.325 ms        | 2.512 ms           |
+| APDEX             | 0,000            | 0,996              |
+El mismo script alcanza el objetivo en un servicio disponible, lo que
+confirma que el resultado de FakeStoreAPI se debe a su indisponibilidad.
+
+3. ANÁLISIS DE ERRORES (DUMMYJSON)
+----------------------------------
+| Tipo de error           | Cantidad | % de errores | % del total |
+|-------------------------|----------|--------------|-------------|
+| 429 Too Many Requests   | 19       | 90,48 %      | 0,37 %      |
+| Assertion failed        | 2        | 9,52 %       | 0,04 %      |
+
+- 429 Too Many Requests: el servicio aplicó límite de peticiones (rate
+  limiting). Ocurrió casi totalmente en los primeros 50 segundos, durante
+  la rampa de subida, cuando los hilos arrancan y generan ráfagas antes
+  de que el Constant Throughput Timer estabilice el ritmo. Con la carga
+  estable en 25 TPS, la tasa de error bajó a 0 %.
+- Assertion failed (2): peticiones que superaron 1,5 s (máximos de
+  1.584 ms y 2.512 ms) y fueron marcadas como error por la Duration
+  Assertion. Son casos aislados: el percentil 99 fue de 262 ms.
+
+4. HALLAZGOS
+------------
+1. El servicio original (FakeStoreAPI) no estuvo disponible (521/522),
+   lo que impidió medir su rendimiento real. Se documentó con evidencia:
+   cURL, capturas de JMeter y un dashboard con 100 % de error.
+2. El script es reutilizable: con parámetros -J se cambia el host, el
+   CSV, la ruta del token, los TPS, los usuarios y la duración sin
+   editar el .jmx.
+3. Con carga estable, el servicio de login alternativo respondió con
+   tiempos muy bajos (mediana 103 ms) y sin errores.
+4. El arranque de la prueba genera ráfagas que activan el rate limiting
+   del servicio (429). Es un comportamiento esperado de una API pública
+   protegida y no una falla de rendimiento.
+5. Los tiempos superiores a 1,5 s fueron excepcionales (2 de 5.198
+   peticiones).
+
+5. CONCLUSIONES
+---------------
+- El script cumple el escenario solicitado: parametriza los datos desde
+  CSV, alcanza más de 20 TPS (24,81 TPS) y valida tiempo de respuesta y
+  tasa de error.
+- Sobre el servicio alternativo, el login soporta 25 TPS con amplio
+  margen: p95 de 150 ms frente al límite de 1.500 ms y 0,40 % de error
+  frente al límite de 3 %.
+- Los resultados de DummyJSON son evidencia complementaria y no
+  reemplazan una medición sobre FakeStoreAPI. Cuando el servicio
+  original vuelva a estar disponible, basta con ejecutar ejecutar.bat
+  para obtener sus resultados reales.
+
+6. RECOMENDACIONES
+------------------
+- Ejecutar la prueba contra FakeStoreAPI cuando esté disponible y
+  comparar con esta línea base.
+- Usar una rampa más larga o un Thread Group con arranque gradual para
+  evitar las ráfagas iniciales que activan el rate limiting.
+- Ejecutar pruebas de estrés incrementales (30, 40, 50 TPS) para
+  encontrar el límite real del servicio y el umbral del rate limiting.
+- Agregar validación específica del código 429 para diferenciar
+  rechazos por límite de peticiones de errores del servidor.
+- Integrar la prueba en un pipeline CI con el reporte HTML como artefacto.
+
+7. EVIDENCIAS
+-------------
+- evidencias/LEEME.txt                    -> explicación de la caída de
+                                             FakeStoreAPI y de cada archivo
+- evidencias/01-curl-fakestoreapi.txt     -> cURL del enunciado (522)
+- evidencias/02-curl-dummyjson.txt        -> cURL de control (funciona)
+- evidencias/03 y 04 (.png)               -> dashboard FakeStoreAPI: 100 %
+                                             FAIL, 103 de 103 errores 522
+- evidencias/05 y 06 (.png)               -> dashboard DummyJSON: 99,6 %
+                                             PASS, APDEX 0.996
+- reports/dashboard-fakestore/index.html  -> corrida contra FakeStoreAPI
+- reports/dashboard-dummyjson/index.html  -> corrida exitosa (plan B)
+- results/                                -> resultados crudos (.jtl) y logs

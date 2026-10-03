@@ -37,7 +37,7 @@
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Datos de usuarios (CSV)" enabled="true">
         <stringProp name="delimiter">,</stringProp>
         <stringProp name="fileEncoding">UTF-8</stringProp>
-        <stringProp name="filename">data/usuarios.csv</stringProp>
+        <stringProp name="filename">${__P(csv,data/usuarios.csv)}</stringProp>
         <boolProp name="ignoreFirstLine">false</boolProp>
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
@@ -105,7 +105,7 @@
           </ResponseAssertion>
           <hashTree/>
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Valida que la respuesta tenga token" enabled="true">
-            <stringProp name="JSON_PATH">$.token</stringProp>
+            <stringProp name="JSON_PATH">${__P(tokenPath,$.token)}</stringProp>
             <stringProp name="EXPECTED_VALUE"></stringProp>
             <boolProp name="JSONVALIDATION">false</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
